@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Roupas</title>
+    <style>
+        /* CSS: Aqui definimos a aparência da página */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Cria uma grade responsiva que se adapta ao tamanho da tela */
+        .grid-catalogo {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Estilo individual de cada "cartão" de roupa */
+        .cartao-roupa {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            text-align: center;
+            padding-bottom: 15px;
+        }
+
+        /* COLE este aqui: */
+        .cartao-roupa img {
+            width: 100%;
+            height: auto; /* A altura se ajusta sozinha à foto */
+            display: block; /* Remove espaços vazios indesejados abaixo da imagem */
+            border-bottom: 1px solid #eee; /* Opcional: uma linha fina para separar a foto do texto */
+        }
+        
+
+        .preco {
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .tamanho {
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Nosso Estoque Disponível</h1>
+    
+    <!-- HTML: Esta é a "caixa" vazia onde o JavaScript vai injetar as roupas -->
+    <div id="catalogo" class="grid-catalogo"></div>
+
+    <script>
+        // JAVASCRIPT: Aqui fica a lógica e os dados do seu sistema
+
+        // 1. Array (Lista) de Objetos. Cada objeto é uma peça de roupa.
+        // Você pode adicionar, remover ou editar itens aqui.
+        const estoqueDeRoupas = [
+            {
+                nome: "Chapéu",
+                tamanho: "Único",
+                preco: "20,00",
+                foto: "Imagem/imagem1.jpeg" // Link temporário
+            },
+            {
+                nome: "Body de onça",
+                tamanho: "G",
+                preco: "20,00",
+                foto: "Imagem/Imagem2.jpeg"
+            },
+            {
+                nome: "Vestido Flórido",
+                tamanho: "P",
+                preco: "25,00",
+                foto: "Imagem/imagem3.jpeg"
+            },
+            {
+            
+                nome: "Bota Preta",
+                tamanho: "37",
+                preco: "25,00",
+                foto: "Imagem/imagem4.jpeg"
+            },
+        ];
+
+        // 2. Capturamos a "caixa" vazia do HTML pelo seu ID
+        const containerCatalogo = document.getElementById('catalogo');
+
+        // 3. Criamos uma função para mostrar as roupas na tela
+        function renderizarCatalogo() {
+            // O forEach vai passar por cada 'roupa' dentro da lista 'estoqueDeRoupas'
+            estoqueDeRoupas.forEach(roupa => {
+                
+                // Cria um novo elemento <div> para ser o cartão
+                const cartao = document.createElement('div');
+                cartao.className = 'cartao-roupa';
+
+                // Preenche o HTML interno do cartão com os dados da roupa atual
+                cartao.innerHTML = `
+                    <img src="${roupa.foto}" alt="${roupa.nome}">
+                    <h3>${roupa.nome}</h3>
+                    <p class="tamanho">Tamanho: ${roupa.tamanho}</p>
+                    <p class="preco">R$ ${roupa.preco}</p>
+                `;
+
+                // Adiciona o cartão pronto dentro do container principal lá no HTML
+                containerCatalogo.appendChild(cartao);
+            });
+        }
+
+        // 4. Executamos a função para a mágica acontecer quando a página abrir
+        renderizarCatalogo();
+    </script>
+</body>
+</html>
