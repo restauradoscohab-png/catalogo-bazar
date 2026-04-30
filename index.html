@@ -37,7 +37,6 @@
             padding-bottom: 15px;
         }
 
-        /* COLE este aqui: */
         .cartao-roupa img {
             width: 100%;
             height: auto; /* A altura se ajusta sozinha à foto */
@@ -59,6 +58,22 @@
             border-radius: 4px;
             display: inline-block;
             margin-bottom: 10px;
+        }
+        /* Estilo do botão do WhatsApp */
+        .botao-whatsapp {
+            display: block;
+            background-color: #25D366; /* Verde oficial do WhatsApp */
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .botao-whatsapp:hover {
+            background-color: #1ebe57; /* Verde um pouco mais escuro ao passar o mouse */
         }
     </style>
 </head>
@@ -107,24 +122,40 @@
 
         // 3. Criamos uma função para mostrar as roupas na tela
         function renderizarCatalogo() {
-            // O forEach vai passar por cada 'roupa' dentro da lista 'estoqueDeRoupas'
+           // Capturamos a "caixa" vazia do HTML pelo seu ID
+        const containerCatalogo = document.getElementById('catalogo');
+
+        // COLOQUE SEU NÚMERO AQUI (Apenas números: 55 + DDD + Número)
+        const meuWhatsApp = "5582991588393"; 
+
+        // Função para mostrar as roupas na tela com o botão
+        function renderizarCatalogo() {
             estoqueDeRoupas.forEach(roupa => {
                 
+                // Cria a mensagem automática e codifica para o formato de link
+                const mensagem = `Olá! Tenho interesse na peça: ${roupa.nome} (Tamanho: ${roupa.tamanho}). Gostaria de comprar para ajudar na viagem!`;
+                const linkZap = `https://wa.me/${meuWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+
                 // Cria um novo elemento <div> para ser o cartão
                 const cartao = document.createElement('div');
                 cartao.className = 'cartao-roupa';
 
-                // Preenche o HTML interno do cartão com os dados da roupa atual
+                // Preenche o HTML interno do cartão (agora com o link <a> do botão)
                 cartao.innerHTML = `
                     <img src="${roupa.foto}" alt="${roupa.nome}">
                     <h3>${roupa.nome}</h3>
                     <p class="tamanho">Tamanho: ${roupa.tamanho}</p>
                     <p class="preco">R$ ${roupa.preco}</p>
+                    <a href="${linkZap}" target="_blank" class="botao-whatsapp">Comprar via WhatsApp</a>
                 `;
 
-                // Adiciona o cartão pronto dentro do container principal lá no HTML
+                // Adiciona o cartão no HTML
                 containerCatalogo.appendChild(cartao);
             });
+        }
+
+        // Executamos a função
+        renderizarCatalogo();
         }
 
         // 4. Executamos a função para a mágica acontecer quando a página abrir
