@@ -84,82 +84,69 @@
     <!-- HTML: Esta é a "caixa" vazia onde o JavaScript vai injetar as roupas -->
     <div id="catalogo" class="grid-catalogo"></div>
 
-    <script>
-        // JAVASCRIPT: Aqui fica a lógica e os dados do seu sistema
-
-        // 1. Array (Lista) de Objetos. Cada objeto é uma peça de roupa.
-        // Você pode adicionar, remover ou editar itens aqui.
-        const estoqueDeRoupas = [
-            {
-                nome: "Chapéu",
-                tamanho: "Único",
-                preco: "20,00",
-                foto: "Imagem/imagem1.jpeg" // Link temporário
-            },
-            {
-                nome: "Body de onça",
-                tamanho: "G",
-                preco: "20,00",
-                foto: "Imagem/Imagem2.jpeg"
-            },
-            {
-                nome: "Vestido Flórido",
-                tamanho: "P",
-                preco: "25,00",
-                foto: "Imagem/imagem3.jpeg"
-            },
-            {
-            
-                nome: "Bota Preta",
-                tamanho: "37",
-                preco: "25,00",
-                foto: "Imagem/imagem4.jpeg"
-            },
-        ];
-
-        // 2. Capturamos a "caixa" vazia do HTML pelo seu ID
-        const containerCatalogo = document.getElementById('catalogo');
-
-        // 3. Criamos uma função para mostrar as roupas na tela
-        function renderizarCatalogo() {
-           // Capturamos a "caixa" vazia do HTML pelo seu ID
-        const containerCatalogo = document.getElementById('catalogo');
-
-        // COLOQUE SEU NÚMERO AQUI (Apenas números: 55 + DDD + Número)
-        const meuWhatsApp = "5582991588393"; 
-
-        // Função para mostrar as roupas na tela com o botão
-        function renderizarCatalogo() {
-            estoqueDeRoupas.forEach(roupa => {
-                
-                // Cria a mensagem automática e codifica para o formato de link
-                const mensagem = `Olá! Tenho interesse na peça: ${roupa.nome} (Tamanho: ${roupa.tamanho}). Gostaria de comprar para ajudar na viagem!`;
-                const linkZap = `https://wa.me/${meuWhatsApp}?text=${encodeURIComponent(mensagem)}`;
-
-                // Cria um novo elemento <div> para ser o cartão
-                const cartao = document.createElement('div');
-                cartao.className = 'cartao-roupa';
-
-                // Preenche o HTML interno do cartão (agora com o link <a> do botão)
-                cartao.innerHTML = `
-                    <img src="${roupa.foto}" alt="${roupa.nome}">
-                    <h3>${roupa.nome}</h3>
-                    <p class="tamanho">Tamanho: ${roupa.tamanho}</p>
-                    <p class="preco">R$ ${roupa.preco}</p>
-                    <a href="${linkZap}" target="_blank" class="botao-whatsapp">Comprar via WhatsApp</a>
-                `;
-
-                // Adiciona o cartão no HTML
-                containerCatalogo.appendChild(cartao);
-            });
+  <script>
+    // 1. Dados do seu estoque
+    const estoqueDeRoupas = [
+        {
+            nome: "Chapéu",
+            tamanho: "Único",
+            preco: "20,00",
+            foto: "Imagem/imagem1.jpeg"
+        },
+        {
+            nome: "Body de onça",
+            tamanho: "G",
+            preco: "20,00",
+            foto: "Imagem/Imagem2.jpeg"
+        },
+        {
+            nome: "Vestido Flórido",
+            tamanho: "P",
+            preco: "25,00",
+            foto: "Imagem/imagem3.jpeg"
+        },
+        {
+            nome: "Bota Preta",
+            tamanho: "37",
+            preco: "25,00",
+            foto: "Imagem/imagem4.jpeg"
         }
+    ];
 
-        // Executamos a função
-        renderizarCatalogo();
-        }
+    // 2. Configurações e Seleção de Elementos
+    const containerCatalogo = document.getElementById('catalogo');
+    const meuWhatsApp = "5582991588393"; 
 
-        // 4. Executamos a função para a mágica acontecer quando a página abrir
-        renderizarCatalogo();
-    </script>
+    // 3. Função ÚNICA para renderizar
+    function renderizarCatalogo() {
+        // Limpa o container antes de renderizar (boa prática)
+        containerCatalogo.innerHTML = "";
+
+        estoqueDeRoupas.forEach(roupa => {
+            // Cria a mensagem personalizada para o WhatsApp
+            const mensagem = `Olá! Tenho interesse na peça: ${roupa.nome} (Tamanho: ${roupa.tamanho}). Gostaria de comprar para ajudar na viagem!`;
+            const linkZap = `https://wa.me/${meuWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+
+            // Cria o elemento do cartão
+            const cartao = document.createElement('div');
+            cartao.className = 'cartao-roupa';
+
+            // Insere o conteúdo, incluindo o botão
+            cartao.innerHTML = `
+                <img src="${roupa.foto}" alt="${roupa.nome}">
+                <h3>${roupa.nome}</h3>
+                <p class="tamanho">Tamanho: ${roupa.tamanho}</p>
+                <p class="preco">R$ ${roupa.preco}</p>
+                <a href="${linkZap}" target="_blank" class="botao-whatsapp">Comprar via WhatsApp</a>
+            `;
+
+            // Adiciona o cartão ao container principal
+            containerCatalogo.appendChild(cartao);
+        });
+    }
+
+    // 4. Chamada da função para executar o código
+    renderizarCatalogo();
+</script>
 </body>
 </html>
