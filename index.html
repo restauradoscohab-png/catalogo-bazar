@@ -44,7 +44,6 @@
             border-bottom: 1px solid #eee; /* Opcional: uma linha fina para separar a foto do texto */
         }
         
-
         .preco {
             color: #27ae60;
             font-weight: bold;
@@ -75,86 +74,206 @@
         .botao-whatsapp:hover {
             background-color: #1ebe57; /* Verde um pouco mais escuro ao passar o mouse */
         }
+        /* Estilo da barra de filtros */
+        .barra-filtros {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            max-width: 1000px;
+            margin: 0 auto 30px auto;
+        }
+
+        .barra-filtros select, .barra-filtros input[type="range"] {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .barra-filtros label {
+            font-weight: bold;
+            color: #333;
+        }
     </style>
 </head>
 <body>
 
     <h1>Nosso Estoque Disponível</h1>
-    
-    <!-- HTML: Esta é a "caixa" vazia onde o JavaScript vai injetar as roupas -->
-    <div id="catalogo" class="grid-catalogo"></div>
 
-  <script>
-    // 1. Dados do seu estoque
-    const estoqueDeRoupas = [
+    <!-- Barra de Filtros -->
+    <!-- Substitua a sua .barra-filtros atual por esta: -->
+    <div class="barra-filtros">
+        <div>
+            <label for="filtroCategoria">Categoria:</label>
+            <select id="filtroCategoria">
+                <option value="todas">Todas</option>
+                <option value="Roupas">Roupas</option>
+                <option value="Calçados">Calçados</option>
+                <option value="Acessórios">Acessórios</option>
+                <option value="Decoração">Decoração</option>
+            </select>
+        </div>
+
+        <!-- NOVO FILTRO AQUI -->
+        <div>
+            <label for="filtroPublico">Público:</label>
+            <select id="filtroPublico">
+                <option value="todos">Todos</option>
+                <option value="Feminino">Feminino</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Infantil">Infantil</option>
+                <option value="Unissex">Unissex</option>
+            </select>
+        </div>
+        
+        <div>
+            <label 
+                for="filtroPreco">Preço Máximo: R$ <span id="valorPreco">30</span>,00
+            </label>
+            <input type="range" id="filtroPreco" min="5" max="30" step="5" value="30">
+            </label>
+        </div>
+    </div>
+    <div id="catalogo" class="grid-catalogo"></div>
+ <script>
+    // 1. Dados do estoque (AGORA COM CATEGORIA E PÚBLICO)
+    const pub_Masculino = 'Masculino';
+    const pub_Feminino = 'Feminino';
+    const pub_Unissex = 'Unissex';
+    const pub_Infantil = 'Infantil';
+
+    const cat_roupas = 'Roupas';
+    const cat_bolsas = 'Bolsas';
+    const cat_acessorios = 'Acessórios';
+    const cat_calcados = 'Calçados';
+    const cat_decoracao = 'Decoração';
+    
+    const estoqueOriginal = [
         {
-            nome: "Chapéu",
+            nome: "Chapéu de praia",
             tamanho: "Único",
             preco: "20,00",
+            categoria: cat_acessorios,
+            publico: pub_Feminino, // <- Propriedade nova!
             foto: "Imagem/imagem1.jpeg"
         },
         {
             nome: "Body de onça",
-            tamanho: "G",
-            preco: "20,00",
+            tamanho: "M",
+            preco: "15,00",
+            categoria: cat_roupas,
+            publico: pub_Feminino, // <- Propriedade nova!
             foto: "Imagem/Imagem2.jpeg"
         },
         {
             nome: "Vestido Flórido",
             tamanho: "P",
             preco: "25,00",
+            categoria: cat_roupas,
+            publico: pub_Feminino,
             foto: "Imagem/imagem3.jpeg"
         },
         {
-            nome: "Bota Preta",
+            nome: "Bota coturno",
             tamanho: "37",
             preco: "25,00",
+            categoria: cat_calcados,
+            publico: pub_Feminino, // <- Propriedade nova!
             foto: "Imagem/imagem4.jpeg"
+        },
+        {
+        nome: "Vaso de Cerâmica",
+        tamanho: "Médio",
+        preco: "15,00",
+        categoria: "Decoração", // Deve bater com o 'value' do HTML
+        publico: "Unissex",
+        foto: "Imagem/vaso.jpeg"
         }
     ];
 
-    // 2. Configurações e Seleção de Elementos
     const containerCatalogo = document.getElementById('catalogo');
     const meuWhatsApp = "5582991588393"; 
 
-    // 3. Função ÚNICA para renderizar
-    function renderizarCatalogo() {
-            containerCatalogo.innerHTML = "";
+    // Capturando os elementos do Filtro no HTML
+    const inputCategoria = document.getElementById('filtroCategoria');
+    const inputPublico = document.getElementById('filtroPublico'); // Capturando o novo select
+    const inputPreco = document.getElementById('filtroPreco');
+    const displayValorPreco = document.getElementById('valorPreco');
 
-            estoqueDeRoupas.forEach(roupa => {
-                
-                // Pegamos o endereço base do seu site para o link da foto funcionar
-                const urlBase = window.location.href;
-                const linkFotoCompleto = urlBase + roupa.foto;
+    // 2. Função de Renderizar
+    function renderizarCatalogo(listaDeRoupas) {
+        containerCatalogo.innerHTML = ""; 
 
-                // Montamos a mensagem com quebras de linha (\n) para ficar organizada
-                const mensagem = `Olá! Tenho interesse nesta peça:
-*Produto:* ${roupa.nome}
-*Tamanho:* ${roupa.tamanho}
-*Preço:* R$ ${roupa.preco}
-*Link da Foto:* ${linkFotoCompleto}
-
-Gostaria de saber se ainda está disponível para o bazar!`;
-
-                const linkZap = `https://wa.me/${meuWhatsApp}?text=${encodeURIComponent(mensagem)}`;
-
-                const cartao = document.createElement('div');
-                cartao.className = 'cartao-roupa';
-
-                cartao.innerHTML = `
-                    <img src="${roupa.foto}" alt="${roupa.nome}">
-                    <h3>${roupa.nome}</h3>
-                    <p class="tamanho">Tamanho: ${roupa.tamanho}</p>
-                    <p class="preco">R$ ${roupa.preco}</p>
-                    <a href="${linkZap}" target="_blank" class="botao-whatsapp">Tenho Interesse</a>
-                `;
-
-                containerCatalogo.appendChild(cartao);
-            });
+        if (listaDeRoupas.length === 0) {
+            containerCatalogo.innerHTML = "<p style='grid-column: 1 / -1; text-align: center; font-size: 1.2em; color: #666;'>Nenhuma peça encontrada com esses filtros.</p>";
+            return;
         }
 
-    // 4. Chamada da função para executar o código
-    renderizarCatalogo();
+        listaDeRoupas.forEach(roupa => {
+            const urlBase = window.location.href;
+            const linkFotoCompleto = urlBase + roupa.foto;
+
+            // A mensagem agora inclui se é Masculino, Feminino, etc.
+            const mensagem = `Olá! Tenho interesse nesta peça:\n*Produto:* ${roupa.nome}\n*Público:* ${roupa.publico}\n*Tamanho:* ${roupa.tamanho}\n*Preço:* R$ ${roupa.preco}\n*Link:* ${linkFotoCompleto}\n\nAinda está disponível para retirada?`;
+            const linkZap = `https://wa.me/${meuWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+
+            const cartao = document.createElement('div');
+            cartao.className = 'cartao-roupa';
+
+            cartao.innerHTML = `
+                <img src="${roupa.foto}" alt="${roupa.nome}">
+                <h3>${roupa.nome}</h3>
+                <p class="tamanho">Tam: ${roupa.tamanho} | ${roupa.publico}</p> <!-- Adicionei o público aqui na tela também -->
+                <p class="preco">R$ ${roupa.preco}</p>
+                <a href="${linkZap}" target="_blank" class="botao-whatsapp">Tenho Interesse</a>
+            `;
+
+            containerCatalogo.appendChild(cartao);
+        });
+    }
+
+    // 3. A Lógica Mestre de Filtragem
+    function aplicarFiltros() {
+        const categoriaEscolhida = inputCategoria.value;
+        const publicoEscolhido = inputPublico.value; // Pegando o valor do filtro de público
+        const precoMaximo = parseFloat(inputPreco.value);
+
+        // Atualiza o numero do preço na tela
+        displayValorPreco.innerText = precoMaximo;
+
+        // O filtro "Triplo"
+        const estoqueFiltrado = estoqueOriginal.filter(roupa => {
+            const precoNumero = parseFloat(roupa.preco.replace(',', '.'));
+            
+            // Regra 1: Passa na Categoria?
+            const passaNaCategoria = (categoriaEscolhida === 'todas') || (roupa.categoria === categoriaEscolhida);
+            
+            // Regra 2: Passa no Público?
+            const passaNoPublico = (publicoEscolhido === 'todos') || (roupa.publico === publicoEscolhido);
+            
+            // Regra 3: Está dentro do preço?
+            const passaNoPreco = precoNumero <= precoMaximo;
+
+            // Só retorna VERDADEIRO se passar nas 3 regras ao mesmo tempo!
+            return passaNaCategoria && passaNoPublico && passaNoPreco;
+        });
+
+        renderizarCatalogo(estoqueFiltrado);
+    }
+
+    // 4. "Ouvintes" de Eventos
+    inputCategoria.addEventListener('change', aplicarFiltros);
+    inputPublico.addEventListener('change', aplicarFiltros); // Ouvindo mudanças no público
+    inputPreco.addEventListener('input', aplicarFiltros);
+
+    // 5. Inicia o catálogo
+    renderizarCatalogo(estoqueOriginal);
 </script>
 </body>
 </html>
