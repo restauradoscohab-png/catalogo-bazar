@@ -119,31 +119,39 @@
 
     // 3. Função ÚNICA para renderizar
     function renderizarCatalogo() {
-        // Limpa o container antes de renderizar (boa prática)
-        containerCatalogo.innerHTML = "";
+            containerCatalogo.innerHTML = "";
 
-        estoqueDeRoupas.forEach(roupa => {
-            // Cria a mensagem personalizada para o WhatsApp
-            const mensagem = `Olá! Tenho interesse na peça: ${roupa.nome} (Tamanho: ${roupa.tamanho}). Gostaria de comprar para ajudar na viagem!`;
-            const linkZap = `https://wa.me/${meuWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+            estoqueDeRoupas.forEach(roupa => {
+                
+                // Pegamos o endereço base do seu site para o link da foto funcionar
+                const urlBase = window.location.href;
+                const linkFotoCompleto = urlBase + roupa.foto;
 
-            // Cria o elemento do cartão
-            const cartao = document.createElement('div');
-            cartao.className = 'cartao-roupa';
+                // Montamos a mensagem com quebras de linha (\n) para ficar organizada
+                const mensagem = `Olá! Tenho interesse nesta peça:
+*Produto:* ${roupa.nome}
+*Tamanho:* ${roupa.tamanho}
+*Preço:* R$ ${roupa.preco}
+*Link da Foto:* ${linkFotoCompleto}
 
-            // Insere o conteúdo, incluindo o botão
-            cartao.innerHTML = `
-                <img src="${roupa.foto}" alt="${roupa.nome}">
-                <h3>${roupa.nome}</h3>
-                <p class="tamanho">Tamanho: ${roupa.tamanho}</p>
-                <p class="preco">R$ ${roupa.preco}</p>
-                <a href="${linkZap}" target="_blank" class="botao-whatsapp">Comprar via WhatsApp</a>
-            `;
+Gostaria de saber se ainda está disponível para o bazar!`;
 
-            // Adiciona o cartão ao container principal
-            containerCatalogo.appendChild(cartao);
-        });
-    }
+                const linkZap = `https://wa.me/${meuWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+
+                const cartao = document.createElement('div');
+                cartao.className = 'cartao-roupa';
+
+                cartao.innerHTML = `
+                    <img src="${roupa.foto}" alt="${roupa.nome}">
+                    <h3>${roupa.nome}</h3>
+                    <p class="tamanho">Tamanho: ${roupa.tamanho}</p>
+                    <p class="preco">R$ ${roupa.preco}</p>
+                    <a href="${linkZap}" target="_blank" class="botao-whatsapp">Tenho Interesse</a>
+                `;
+
+                containerCatalogo.appendChild(cartao);
+            });
+        }
 
     // 4. Chamada da função para executar o código
     renderizarCatalogo();
