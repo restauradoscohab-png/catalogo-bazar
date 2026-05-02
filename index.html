@@ -100,6 +100,17 @@
             font-weight: bold;
             color: #333;
         }
+
+        .filtro-preco {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .filtro-preco input[type="range"] {
+            width: 200px;
+        }
+
     </style>
 </head>
 <body>
@@ -115,6 +126,7 @@
                 <option value="todas">Todas</option>
                 <option value="Roupas">Roupas</option>
                 <option value="Calçados">Calçados</option>
+                <option value="Bolsas">Bolsas</option>
                 <option value="Acessórios">Acessórios</option>
                 <option value="Decoração">Decoração</option>
             </select>
@@ -132,11 +144,11 @@
             </select>
         </div>
         
-        <div>
-            <label 
-                for="filtroPreco">Preço Máximo: R$ <span id="valorPreco">30</span>,00
+        <div class="filtro-preco">
+            <label for="filtroPreco">
+                Preço Máximo: R$ <span id="valorPreco">25</span>,00
             </label>
-            <input type="range" id="filtroPreco" min="5" max="30" step="5" value="30">
+            <input type="range" id="filtroPreco" min="5" max="25" step="5" value="25">
             </label>
         </div>
     </div>
@@ -160,7 +172,7 @@
             tamanho: "Único",
             preco: "20,00",
             categoria: cat_acessorios,
-            publico: pub_Feminino, // <- Propriedade nova!
+            publico: pub_Feminino,
             foto: "Imagem/imagem1.jpeg"
         },
         {
@@ -168,34 +180,643 @@
             tamanho: "M",
             preco: "15,00",
             categoria: cat_roupas,
-            publico: pub_Feminino, // <- Propriedade nova!
-            foto: "Imagem/Imagem2.jpeg"
-        },
-        {
-            nome: "Vestido Flórido",
-            tamanho: "P",
-            preco: "25,00",
-            categoria: cat_roupas,
             publico: pub_Feminino,
-            foto: "Imagem/imagem3.jpeg"
+            foto: "Imagem/imagem2.jpeg"
         },
         {
-            nome: "Bota coturno",
-            tamanho: "37",
-            preco: "25,00",
+            nome: "Percata prata",
+            tamanho: "33",
+            preco: "20,00",
             categoria: cat_calcados,
-            publico: pub_Feminino, // <- Propriedade nova!
-            foto: "Imagem/imagem4.jpeg"
+            publico: pub_Feminino,
+            foto: "Imagem/imagem5.jpeg"
         },
         {
-        nome: "Vaso de Cerâmica",
-        tamanho: "Médio",
-        preco: "15,00",
-        categoria: "Decoração", // Deve bater com o 'value' do HTML
-        publico: "Unissex",
-        foto: "Imagem/vaso.jpeg"
-        }
+            nome: "Cinto rosé",
+            tamanho: "Único",
+            preco: "5,00",
+            categoria: cat_acessorios, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem6.jpeg"
+        },
+        {
+            nome: "Blusa azul",
+            tamanho: "P",
+            preco: "10,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem7.jpeg"
+        },
+        {
+            nome: "Bolsa rosa",
+            tamanho: "Único",
+            preco: "20,00",
+            categoria: cat_bolsas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem8.jpeg"
+        },
+        {
+            nome: "Blusa branca",
+            tamanho: "P",
+            preco: "10,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem9.jpeg"
+        },
+        {
+            nome: "Blusa verde",
+            tamanho: "P",
+            preco: "10,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem10.jpeg"
+        },
+        {
+            nome: "Bermuda moletom cinza",
+            tamanho: "M",
+            preco: "5,00",
+            categoria: cat_roupas, 
+            publico: pub_Masculino,
+            foto: "Imagem/imagem12.jpeg"
+        },
+        {
+            nome: "Calça jeans azul",
+            tamanho: "38",
+            preco: "5,00",
+            categoria: cat_roupas, 
+            publico: pub_Masculino,
+            foto: "Imagem/imagem13.jpeg"
+        },
+        {
+            nome: "Calça moletom cinza",
+            tamanho: "40",
+            preco: "5,00",
+            categoria: cat_roupas, 
+            publico: pub_Masculino,
+            foto: "Imagem/imagem14.jpeg"
+        },
+        {
+            nome: "Short estampado",
+            tamanho: "6",
+            preco: "5,00",
+            categoria: cat_roupas, 
+            publico: pub_Infantil,
+            foto: "Imagem/imagem15.jpeg"
+        },
+        {
+            nome: "Bermuda jeans",
+            tamanho: "38",
+            preco: "5,00",
+            categoria: cat_roupas, 
+            publico: pub_Masculino,
+            foto: "Imagem/imagem16.jpeg"
+        },
+        {
+            nome: "Vestido florido",
+            tamanho: "4 anos",
+            preco: "5,00",
+            categoria: cat_roupas, 
+            publico: pub_Infantil,
+            foto: "Imagem/imagem17.jpeg"
+        },
+        {
+            nome: "Cropped branco",
+            tamanho: "M",
+            preco: "5,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem18.jpeg"
+        },
+        {
+            nome: "Blusa vermelha florida",
+            tamanho: "3 anos",
+            preco: "5,00",
+            categoria: cat_roupas, 
+            publico: pub_Infantil,
+            foto: "Imagem/imagem19.jpeg"
+        },
+        {
+            nome: "Cropped azul",
+            tamanho: "P",
+            preco: "5,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem20.jpeg"
+        },
+        {
+            nome: "Body Branca de neve",
+            tamanho: "4 anos",
+            preco: "5,00",
+            categoria: cat_roupas, 
+            publico: pub_Infantil,
+            foto: "Imagem/imagem21.jpeg"
+        },
+        {
+            nome: "Body listrado",
+            tamanho: "M",
+            preco: "5,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem22.jpeg"
+        },
+        {
+            nome: "Cropped tricô colorido",
+            tamanho: "P",
+            preco: "5,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem23.jpeg"
+        },
+        {
+            nome: "Body verde",
+            tamanho: "P",
+            preco: "5,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem24.jpeg"
+        },
+        {
+            nome: "Blusa laranja",
+            tamanho: "P",
+            preco: "5,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem25.jpeg"
+        },
+        {
+            nome: "Blusa verde",
+            tamanho: "P",
+            preco: "5,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem26.jpeg"
+        },
+        {
+            nome: "Blusa amarela",
+            tamanho: "G",
+            preco: "10,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem27.jpeg"
+        },
+        {
+            nome: "Vestido P&B",
+            tamanho: "G",
+            preco: "10,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem28.jpeg"
+        },
+        {
+            nome: "Vestido de corações",
+            tamanho: "4 anos",
+            preco: "10,00",
+            categoria: cat_roupas, 
+            publico: pub_Infantil,
+            foto: "Imagem/imagem29.jpeg"
+        },
+        {
+            nome: "Blusa marrom",
+            tamanho: "G",
+            preco: "10,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem32.jpeg"
+        },
+        {
+            nome: "Blusa bege",
+            tamanho: "P",
+            preco: "10,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem33.jpeg"
+        },
+        {
+            nome: "Vestido verde",
+            tamanho: "P",
+            preco: "10,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem34.jpeg"
+        },
+        {
+            nome: "Short jeans",
+            tamanho: "34",
+            preco: "10,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem35.jpeg"
+        },
+        {
+            nome: "Short jeans preto",
+            tamanho: "38",
+            preco: "10,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem36.jpeg"
+        },
+        {
+            nome: "Blusa verde florida",
+            tamanho: "G",
+            preco: "10,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem37.jpeg"
+        },
+        {
+            nome: "Camisa manga longa",
+            tamanho: "M",
+            preco: "15,00",
+            categoria: cat_roupas, 
+            publico: pub_Masculino,
+            foto: "Imagem/imagem38.jpeg"
+        },
+        {
+            nome: "Vestido azul",
+            tamanho: "G",
+            preco: "15,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem39.jpeg"
+        },
+        {
+            nome: "Blusa branca",
+            tamanho: "G",
+            preco: "15,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem40.jpeg"
+        },
+        {
+            nome: "Blusa estampada",
+            tamanho: "P",
+            preco: "15,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem41.jpeg"
+        },
+        {
+            nome: "Vestido vermelho",
+            tamanho: "PP",
+            preco: "15,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem42.jpeg"
+        },
+        {
+            nome: "Saia branca",
+            tamanho: "PP",
+            preco: "15,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem43.jpeg"
+        },
+        {
+            nome: "Macacão jeans",
+            tamanho: "38",
+            preco: "15,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem44.jpeg"
+        },
+        {
+            nome: "Camisa polo terracota",
+            tamanho: "M",
+            preco: "15,00",
+            categoria: cat_roupas, 
+            publico: pub_Masculino,
+            foto: "Imagem/imagem45.jpeg"
+        },
+        {
+            nome: "T-shirt verde",
+            tamanho: "M",
+            preco: "15,00",
+            categoria: cat_roupas, 
+            publico: pub_Masculino,
+            foto: "Imagem/imagem46.jpeg"
+        },
+        {
+            nome: "Jaqueta jeans",
+            tamanho: "6 anos",
+            preco: "15,00",
+            categoria: cat_roupas, 
+            publico: pub_Infantil,
+            foto: "Imagem/imagem47.jpeg"
+        },
+        {
+            nome: "Calça cinza",
+            tamanho: "38",
+            preco: "15,00",
+            categoria: cat_roupas, 
+            publico: pub_Masculino,
+            foto: "Imagem/imagem48.jpeg"
+        },
+        {
+            nome: "Calça jeans azul",
+            tamanho: "36",
+            preco: "15,00",
+            categoria: cat_roupas, 
+            publico: pub_Masculino,
+            foto: "Imagem/imagem49.jpeg"
+        },
+        {
+            nome: "Vestido florido",
+            tamanho: "P",
+            preco: "15,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem50.jpeg"
+        },
+        {
+            nome: "Saia preta",
+            tamanho: "G",
+            preco: "20,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem51.jpeg"
+        },
+        {
+            nome: "Macacão verde",
+            tamanho: "G",
+            preco: "20,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem52.jpeg"
+        },
+        {
+            nome: "Macacão verde",
+            tamanho: "G",
+            preco: "20,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem53.jpeg"
+        },
+        {
+            nome: "Vestido verde neon",
+            tamanho: "P",
+            preco: "20,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem55.jpeg"
+        },
+        {
+            nome: "Regata cetim Lança Perfume",
+            tamanho: "P",
+            preco: "20,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem56.jpeg"
+        },
+        {
+            nome: "Vestido de onça",
+            tamanho: "M",
+            preco: "20,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem57.jpeg"
+        },
+        {
+            nome: "Saída de praia bege",
+            tamanho: "G",
+            preco: "20,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem58.jpeg"
+        },
+        {
+            nome: "Macacão creme",
+            tamanho: "G",
+            preco: "20,00",
+            categoria: cat_roupas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem59.jpeg"
+        },
+        {
+            nome: "Bermuda de compressão",
+            tamanho: "M",
+            preco: "20,00",
+            categoria: cat_roupas, 
+            publico: pub_Masculino,
+            foto: "Imagem/imagem60.jpeg"
+        },
+        {
+            nome: "Calça marrom",
+            tamanho: "14 anos",
+            preco: "20,00",
+            categoria: cat_roupas, 
+            publico: pub_Infantil,
+            foto: "Imagem/imagem61.jpeg"
+        },
+        {
+            nome: "Camisa xadrez",
+            tamanho: "14 anos",
+            preco: "20,00",
+            categoria: cat_roupas, 
+            publico: pub_Infantil,
+            foto: "Imagem/imagem62.jpeg"
+        },
+        {
+            nome: "Camisa cinza",
+            tamanho: "G",
+            preco: "20,00",
+            categoria: cat_roupas, 
+            publico: pub_Masculino,
+            foto: "Imagem/imagem63.jpeg"
+        },
+        {
+            nome: "Camisa verde",
+            tamanho: "M",
+            preco: "20,00",
+            categoria: cat_roupas, 
+            publico: pub_Masculino,
+            foto: "Imagem/imagem64.jpeg"
+        },
+        {
+            nome: "Calça jeans preta",
+            tamanho: "38",
+            preco: "20,00",
+            categoria: cat_roupas, 
+            publico: pub_Masculino,
+            foto: "Imagem/imagem65.jpeg"
+        },
+        {
+            nome: "Jaqueta jeans",
+            tamanho: "8 anos",
+            preco: "20,00",
+            categoria: cat_roupas, 
+            publico: pub_Infantil,
+            foto: "Imagem/imagem66.jpeg"
+        },
+        {
+            nome: "Bolsa de palha",
+            tamanho: "Único",
+            preco: "15,00",
+            categoria: cat_bolsas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem69.jpeg"
+        },
+        {
+            nome: "Bolsa marrom",
+            tamanho: "Único",
+            preco: "10,00",
+            categoria: cat_bolsas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem70.jpeg"
+        },
+        {
+            nome: "Luminária PVC",
+            tamanho: "Único",
+            preco: "10,00",
+            categoria: cat_decoracao, 
+            publico: pub_Unissex,
+            foto: "Imagem/imagem71.jpeg"
+        },
+        {
+            nome: "Percata preta",
+            tamanho: "37",
+            preco: "10,00",
+            categoria: cat_calcados, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem72.jpeg"
+        },
+        {
+            nome: "Percata azul claro",
+            tamanho: "36",
+            preco: "10,00",
+            categoria: cat_calcados, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem73.jpeg"
+        },
+        {
+            nome: "Cinto preto estampado",
+            tamanho: "Único",
+            preco: "5,00",
+            categoria: cat_acessorios, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem74.jpeg"
+        },
+        {
+            nome: "Cinto estampado",
+            tamanho: "Único",
+            preco: "5,00",
+            categoria: cat_acessorios, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem75.jpeg"
+        },
+        {
+            nome: "Bolsa amarela Petite Jolie",
+            tamanho: "Único",
+            preco: "25,00",
+            categoria: cat_bolsas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem76.jpeg"
+        },
+        {
+            nome: "Cinto roxo",
+            tamanho: "Único",
+            preco: "5,00",
+            categoria: cat_acessorios, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem77.jpeg"
+        },
+        {
+            nome: "Cinto preto fino",
+            tamanho: "Único",
+            preco: "5,00",
+            categoria: cat_acessorios, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem78.jpeg"
+        },
+        {
+            nome: "Carteira marrom",
+            tamanho: "Único",
+            preco: "10,00",
+            categoria: cat_bolsas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem79.jpeg"
+        },
+        {
+            nome: "Bolsa preta",
+            tamanho: "Único",
+            preco: "5,00",
+            categoria: cat_bolsas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem80.jpeg"
+        },
+        {
+            nome: "Bag preta",
+            tamanho: "Único",
+            preco: "5,00",
+            categoria: cat_bolsas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem82.jpeg"
+        },
+        {
+            nome: "Viseira preta",
+            tamanho: "Único",
+            preco: "5,00",
+            categoria: cat_acessorios, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem81.jpeg"
+        },
+        {
+            nome: "Bolsa rosa",
+            tamanho: "Único",
+            preco: "5,00",
+            categoria: cat_bolsas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem83.jpeg"
+        },
+        {
+            nome: "Bolsa preta Petite Jolie",
+            tamanho: "Único",
+            preco: "10,00",
+            categoria: cat_bolsas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem84.jpeg"
+        },
+        {
+            nome: "Bolsa preta",
+            tamanho: "Único",
+            preco: "5,00",
+            categoria: cat_bolsas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem85.jpeg"
+        },
+        {
+            nome: "Bolsa bege",
+            tamanho: "Único",
+            preco: "10,00",
+            categoria: cat_bolsas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem86.jpeg"
+        },
+        {
+            nome: "Bolsa bege",
+            tamanho: "Único",
+            preco: "5,00",
+            categoria: cat_bolsas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem87.jpeg"
+        },
+        {
+            nome: "Sandália rosa Petite Jolie",
+            tamanho: "Único",
+            preco: "10,00",
+            categoria: cat_calcados, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem88.jpeg"
+        },
+        {
+            nome: "Pochete holográfica",
+            tamanho: "Único",
+            preco: "5,00",
+            categoria: cat_bolsas, 
+            publico: pub_Feminino,
+            foto: "Imagem/imagem89.jpeg"
+        },
     ];
+    
 
     const containerCatalogo = document.getElementById('catalogo');
     const meuWhatsApp = "5582991588393"; 
